@@ -6,6 +6,10 @@
   "repository": "git@github.com:SergeLavrentyev/vuejs2-boilerplate.git",
   "author": "SergeLavrentev <bert679@yandex.ru>",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack serve --mode=development",
+    "build": "webpack --mode=production"
+  },
   "dependencies": {
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
