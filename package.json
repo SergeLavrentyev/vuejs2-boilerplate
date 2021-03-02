@@ -1,0 +1,34 @@
+{
+  "name": "vuejs2-boilerplate",
+  "version": "1.0.0",
+  "description": "vue2 with webpack",
+  "main": "index.js",
+  "repository": "git@github.com:SergeLavrentyev/vuejs2-boilerplate.git",
+  "author": "SergeLavrentev <bert679@yandex.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.6.12",
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "autoprefixer": "^10.2.4",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.1.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.2.0",
+    "less": "^4.1.1",
+    "less-loader": "^8.0.0",
+    "postcss": "^8.2.6",
+    "postcss-loader": "^5.0.0",
+    "postcss-nested": "^5.0.4",
+    "vue-loader": "^15.9.6",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.12",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
