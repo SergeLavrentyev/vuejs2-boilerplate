@@ -7,17 +7,22 @@
   "author": "SergeLavrentev <bert679@yandex.ru>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --mode=development",
-    "build": "webpack --mode=production"
+    "start": "cross-env NODE_ENV=development  webpack serve",
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
+    "prerender-spa-plugin": "^3.4.0",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/preset-env": "^7.13.9",
+    "@babel/runtime": "^7.13.10",
     "autoprefixer": "^10.2.4",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.1.1",
@@ -28,6 +33,7 @@
     "postcss": "^8.2.6",
     "postcss-loader": "^5.0.0",
     "postcss-nested": "^5.0.4",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-loader": "^15.9.6",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.12",

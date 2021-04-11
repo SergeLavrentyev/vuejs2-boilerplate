@@ -1,56 +1,71 @@
-const VueLoaderPlagin = require('vue-loader/lib/plugin');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { resolve } = require('path');
-const { options } = require('less');
+const VueLoaderPlagin = require("vue-loader/lib/plugin");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+// const PrerenderSPAPlugin = require("prerender-spa-plugin");
+const path = require("path");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
+const isProduction = process.env.NODE_ENV || "production";
+const resolve = file => path.resolve(__dirname, file);
 
 module.exports = {
+  mode: isProduction ? "production" : "development",
   entry: {
-    main: resolve(__dirname, 'src', 'main.js')
+    main: resolve("src/main.js")
   },
   output: {
-    path: resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/'
+    path: resolve("/dist"),
+    filename: "[name].bundle.js",
+    publicPath: "/"
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: "vue-loader"
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: '/node_modules/'
+        loader: "babel-loader",
+        exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file)
       },
       {
         test: /\.less$/,
         use: [
-          'vue-style-loader',
+          "vue-style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               esModule: false
             }
           },
-          'postcss-loader',
+          "postcss-loader",
           {
-            loader: 'less-loader',
+            loader: "less-loader",
             options: {
               lessOptions: {
-                math: 'always'
+                math: "always"
               }
             }
           }
         ]
       },
       {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            limit: 10000,
+            name: "images/[name].[hash:8].[ext]"
+          }
+        }
+      },
+      {
         test: /\.(svg|png|jpe?g|gif)$/,
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          filename: '[name].[ext]',
-          publicPath: './images',
-          outputPath: './images/',
+          filename: "[name].[ext]",
+          publicPath: "./assets/images",
+          outputPath: "./images/",
           esModule: false
         }
       }
@@ -59,22 +74,27 @@ module.exports = {
   devServer: {
     hot: true,
     open: true,
-    publicPath: '/',
-    host: '0.0.0.0'
+    publicPath: "/",
+    host: "0.0.0.0"
   },
   plugins: [
     new VueLoaderPlagin(),
     new HTMLWebpackPlugin({
-      filename: 'index.html',
-      template: resolve(__dirname, 'src', 'public', 'index.html'),
-      publicPath: '/'
+      filename: "index.html",
+      template: resolve("src/public/index.html"),
+      publicPath: "/"
     })
   ],
   resolve: {
-    extensions: ['.js', '.vue'],
+    extensions: [".js", ".vue"],
     alias: {
-      '@': resolve(__dirname, './src')
+      "@": resolve("/src"),
+      "@c": resolve("/src/components")
     }
-
-  }
-}
+  },
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
+  devtool: false,
+};
